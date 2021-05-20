@@ -11,9 +11,6 @@ runtime: shiny
 library(flexdashboard)
 library(shiny)
 library(shinythemes)
-library(tmap)
-library(tidyverse)
-library(xts)
 library(plotly)
 library(dygraphs)
 ```
