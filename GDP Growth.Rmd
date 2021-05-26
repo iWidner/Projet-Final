@@ -13,15 +13,21 @@ library(shiny)
 library(shinythemes)
 library(plotly)
 library(dygraphs)
+library(shinydashboard)
+library(bslib)
+
 ```
 
 ```{r}
 setwd("C:/Users/ESM/Desktop/GDP Growth 1")
 data<-read.csv("eco croissance.csv")
-fluidPage(theme = shinytheme("united"))
+fluidPage(theme = "darkly")
 data<-as.data.frame(data)
+
 ```
 
+```{r}
+```
 
 GLOBAL STATISTICS
 ==============
@@ -41,7 +47,6 @@ not finished. The region cannot let its guard down. There are a lot of resources
 to strengthen African health systems and effectively protect staff 
 while ensuring rapid and affordable health care for citizens.")
 
-
 renderDygraph(dygraph(data, x=~data[[input$pays]]))
 ```
 
@@ -52,17 +57,16 @@ renderDataTable(data)
 
 mainPanel("Change in Economic Growth According Selected Country ")
 
-
-renderPlotly(plot_ly(data, x=~data[[input$pays]]))
 ```
 
 GROWTH EVOLUTION
 ===========
 
 ```{r}
-sidebarPanel(h5("Since the end of 2019, the development of countries' growth has started to decline. however there is no other explanation than the effect of the pendemie negatively affects the level of production of the countries
+(h5("Since the end of 2019, the development of countries' growth has started to decline. however there is no other explanation than the effect of the pendemie negatively affects the level of production of the countries
 ."))
 ```
+--------------------------------------------------------------------------------------
 
 Row {data-height= 150}
 -------------------------------------------
@@ -70,37 +74,17 @@ Row {data-height= 150}
 selectInput("pays", "Choose the country to see the evolution of its growth
 ", choices = c("USA","Chine","Haïti", "Italie", "France", "Espagne","Japon", "Canada"))
 
-renderPlotly(plot_ly(data, x=~data[[input$pays]], color = I("Orange")))
+renderPlotly(plot_ly(type = 'scatter',mode='lines+markers' ,name = "Growth Evolution",data, x=~Periode, y=~data[[input$pays]], color = I("Orange")))
 
 ```
 
 Row {data-height= 150}
 -----------------------------------
 ```{r}
-selectInput("var", "Select another Country to Compare the level of the growth", choices = c("USA","Chine","Haïti", "Italie", "France", "Espagne","Japon", "Canada"))
-renderPlotly(plot_ly(data, x=~data[[input$var]], color = I("green",type="scatter")))
+selectInput("CROISSANCE", "Select another Country to Compare the level of the growth", choices = c("USA","Chine","Haïti", "Italie", "France", "Espagne","Japon", "Canada"))
+renderPlotly(plot_ly(type= 'scatter',mode='lines', data,y=~data[[input$CROISSANCE]], x=~Periode, color = I("purple")))
 ```
 
-```{r}
-"llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll"
-```
-
-COUNTRIES GROWTH PROFILE
-===================
-
-```{r}
-h4("On peut constater la croissance de tout les pays suivants on tandances a diminuer aucours de la 4e periode, l'annes 2019")
-```
-
-```{r}
-plot(data$Monde, type = "l")
-plot(data$France,type = "l")
-plot(data$Chine, type = "l")
-plot(data$Italie, type = "l")
-plot(data$Espagne, type = "l")
-plot(data$Union.Européenne,type = "l")
-
-```
 
  DEPLOYERS INFORMATION
 ===========================
